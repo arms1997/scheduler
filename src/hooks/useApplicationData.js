@@ -28,22 +28,25 @@ function reducer(state, action) {
     case SET_DAY:
       return { ...state, day: action.day }
 
-    case SET_APPLICATION_DATA:
-      return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers }
+    case SET_APPLICATION_DATA: {
+      const { days, appointments, interviewers } = action
+
+      return { ...state, days, appointments, interviewers }
+    }
 
     case SET_INTERVIEW:
-      const {id, interview} = action
+      const { id, interview } = action
 
       const appointment = {
         ...state.appointments[id],
-        interview: { ...interview }
+        interview: interview
       };
-  
+
       const appointments = {
         ...state.appointments,
         [id]: appointment
       };
-  
+
       const days = getDay(state, id, appointments)
 
       return { ...state, appointments, days }
@@ -65,16 +68,16 @@ export default function useApplicationData() {
   })
 
   useEffect(() => {
-    
+
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
     ])
-    .then(([days, appointments, interviewers]) => {
-      dispatch({ type: SET_APPLICATION_DATA, days: days.data, appointments: appointments.data, interviewers: interviewers.data })
-    })
-    .catch(err => console.error(err))
+      .then(([days, appointments, interviewers]) => {
+        dispatch({ type: SET_APPLICATION_DATA, days: days.data, appointments: appointments.data, interviewers: interviewers.data })
+      })
+      .catch(err => console.error(err))
 
     const webSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
 
@@ -82,9 +85,11 @@ export default function useApplicationData() {
       webSocket.send("ping")
 
       webSocket.onmessage = (event) => {
-        const {type, id, interview} = JSON.parse(event.data)
-        
-        if(type){
+        console.log(event.data)
+
+        const { type, id, interview } = JSON.parse(event.data)
+
+        if (type) {
           dispatch({ type, id, interview })
         }
       }
