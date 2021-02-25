@@ -47,3 +47,9 @@ npm run test:server
 ```
 
 ## Screenshots of Final Product
+
+![Creating an Interview](https://github.com/arms1997/scheduler/blob/master/docs/createInterview.gif?raw=true)
+_Creating an Interview_
+
+![Editing and Deleting Interviews](https://github.com/arms1997/scheduler/blob/master/docs/change_delete_interview.gif?raw=true)
+_Editing and Deleting an Interview_
