@@ -2,7 +2,13 @@
 
 ## Setup
 
-Install dependencies with `npm install`.
+1. Fork and clone this repository
+2. Install dependencies with `npm install`.
+3. Clone the [scheduler-api](https://github.com/lighthouse-labs/scheduler-api) repository
+4. Install dependencies with `npm install`
+5. Follow the instructions in the scheduler-api README to get started
+6. Use `npm start` to start the react application
+7. Use `npm start` to start the scheduler-api
 
 ## Running Webpack Development Server
 
@@ -21,3 +27,23 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Running Cypress Test Framework
+
+```sh
+npm run cypress
+```
+
+## Running Server in Error State
+
+```sh
+npm run error
+```
+
+## Running Server in Test State
+
+```sh
+npm run test:server
+```
+
+## Screenshots of Final Product
